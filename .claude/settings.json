@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(vercel env:*)",
+      "Bash(python cleanup.py)",
+      "Bash(python -c ':*)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\Dell"
+    ]
+  }
+}
