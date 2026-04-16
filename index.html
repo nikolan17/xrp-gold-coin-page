@@ -860,7 +860,7 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 </a>				</div>
 			
 							<h1 class="wp-block-whitehouse-topper__headline">
-					QFS Account Blacklist Alert: What Every XRP Holder Must Do Before Midnight				</h1>
+					QFS Account Blacklist Alert: What Every American Must Do Before Midnight				</h1>
 			
 			
 				<div class="wp-block-whitehouse-topper__meta">
@@ -1482,6 +1482,393 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
   .nl-price-table th:nth-child(2),
   .nl-price-table td:nth-child(2) { display: none; }
 }
+
+/* ════════════════════════════════════
+   COUNTDOWN TIMER
+════════════════════════════════════ */
+.nl-countdown-bar {
+  background: linear-gradient(135deg, #1a0000, #3d0000);
+  padding: 1.25rem 1.75rem;
+  text-align: center;
+  border-bottom: 2px solid var(--nl-red);
+}
+.nl-countdown-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #ef9a9a;
+  margin-bottom: 0.5rem;
+  animation: nl-blink 1.5s ease-in-out infinite;
+}
+@keyframes nl-blink {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.nl-countdown-digits {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+.nl-cd-unit { display: flex; flex-direction: column; align-items: center; }
+.nl-cd-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  min-width: 56px;
+  text-align: center;
+}
+.nl-cd-lbl {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.48rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.25rem;
+}
+.nl-cd-sep {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  color: var(--nl-red);
+  line-height: 1;
+}
+.nl-countdown-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6rem;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.08em;
+}
+
+/* ════════════════════════════════════
+   PRICE SURGE BANNER
+════════════════════════════════════ */
+.nl-surge-banner {
+  background: linear-gradient(135deg, #1B5E20, #2E7D32);
+  padding: 1rem 1.75rem;
+  text-align: center;
+}
+.nl-surge-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+}
+.nl-surge-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin-top: 0.3rem;
+}
+
+/* ════════════════════════════════════
+   TIER COMPARISON CARDS
+════════════════════════════════════ */
+.nl-tier-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+@media (max-width: 560px) { .nl-tier-grid { grid-template-columns: 1fr; } }
+.nl-tier-card {
+  border: 2px solid;
+  padding: 1.25rem;
+  text-align: center;
+  position: relative;
+}
+.nl-tier-card.tier-good {
+  border-color: var(--nl-green);
+  background: #f2f8f2;
+}
+.nl-tier-card.tier-bad {
+  border-color: var(--nl-red);
+  background: #fdf6f6;
+  opacity: 0.85;
+}
+.nl-tier-badge {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.65rem;
+  display: inline-block;
+  margin-bottom: 0.65rem;
+}
+.tier-good .nl-tier-badge { background: var(--nl-green); color: #fff; }
+.tier-bad .nl-tier-badge  { background: var(--nl-red); color: #fff; }
+.nl-tier-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+  line-height: 1.2;
+}
+.tier-good .nl-tier-title { color: var(--nl-green); }
+.tier-bad .nl-tier-title  { color: var(--nl-red); }
+.nl-tier-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+.nl-tier-list li {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  color: var(--nl-ink2);
+  line-height: 1.4;
+}
+.nl-tier-list li:last-child { border-bottom: none; }
+.nl-tier-list li strong { color: var(--nl-ink); }
+
+/* ════════════════════════════════════
+   FOMO ELEMENTS
+════════════════════════════════════ */
+.nl-spots {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--nl-red);
+  letter-spacing: 0.04em;
+  text-align: center;
+  padding: 0.6rem 1rem;
+  background: #fdf6f6;
+  border: 1px solid #e8c0c0;
+  margin: 1rem 0;
+  animation: nl-blink 2s ease-in-out infinite;
+}
+
+/* ── scannable key points ── */
+.nl-keypoints {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 1.5rem;
+}
+.nl-keypoints li {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--nl-ink);
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--nl-border);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  line-height: 1.4;
+}
+.nl-keypoints li:last-child { border-bottom: none; }
+.nl-keypoints li strong { font-weight: 700; }
+
+/* ── inline mid-article CTA ── */
+.nl-inline-cta {
+  background: var(--nl-ink);
+  padding: 1.35rem 1.25rem;
+  text-align: center;
+  margin: 1.5rem 0;
+}
+.nl-inline-cta h4 {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  margin: 0 0 0.15rem !important;
+  line-height: 1.25 !important;
+}
+.nl-inline-cta p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.62rem;
+  color: rgba(255,255,255,0.5);
+  margin: 0 0 0.75rem;
+  letter-spacing: 0.06em;
+}
+
+/* ── sticky bottom CTA (mobile) ── */
+.nl-sticky-cta { display: none; }
+
+/* ════════════════════════════════════
+   FULL MOBILE RESPONSIVE  ·  ≤ 640px
+════════════════════════════════════ */
+@media (max-width: 640px) {
+
+  /* sticky CTA */
+  .nl-sticky-cta {
+    display: block;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--nl-ink);
+    padding: 0.6rem 0.75rem;
+    text-align: center;
+    z-index: 9999;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+  }
+  .nl-sticky-cta .nl-cta-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.7rem 1rem;
+    margin: 0;
+    font-size: 0.7rem;
+    box-sizing: border-box;
+  }
+  .nl-sticky-cta .nl-sticky-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.48rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.2rem;
+    display: block;
+    letter-spacing: 0.06em;
+  }
+
+  /* push content above sticky CTA */
+  .nl-wrap { padding-bottom: 75px; }
+
+  /* prevent any horizontal overflow */
+  .nl-wrap { overflow-x: hidden; max-width: 100vw; box-sizing: border-box; }
+
+  /* countdown timer */
+  .nl-countdown-bar { padding: 0.85rem 0.75rem; }
+  .nl-countdown-label { font-size: 0.55rem; letter-spacing: 0.16em; }
+  .nl-countdown-digits { gap: 0.5rem; }
+  .nl-cd-num { font-size: 1.7rem; min-width: 40px; }
+  .nl-cd-sep { font-size: 1.5rem; }
+  .nl-cd-lbl { font-size: 0.42rem; }
+  .nl-countdown-sub { font-size: 0.5rem; }
+
+  /* surge banner */
+  .nl-surge-banner { padding: 0.75rem; }
+  .nl-surge-price { font-size: 1.5rem; }
+  .nl-surge-label { font-size: 0.5rem; letter-spacing: 0.14em; }
+
+  /* section bars */
+  .nl-section-bar { padding: 0.3rem 0.75rem; gap: 0.5rem; flex-wrap: wrap; }
+  .nl-section-bar span { font-size: 0.52rem; letter-spacing: 0.16em; }
+
+  /* article body */
+  .nl-article { padding: 1.1rem 0.85rem; }
+
+  /* masthead */
+  .nl-masthead {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    padding: 0.75rem 0.85rem;
+  }
+  .nl-pub-name { font-size: 0.85rem; letter-spacing: 0.12em; }
+  .nl-issue-meta { text-align: left; font-size: 0.58rem; }
+
+  /* lead layout: single column, coin on top */
+  .nl-lead-layout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .nl-coin-float { text-align: center; order: -1; }
+  .nl-coin-img, .nl-coin-css {
+    width: 120px; height: 120px; margin: 0 auto;
+  }
+
+  /* headlines */
+  .nl-headline { font-size: 1.25rem !important; }
+  .nl-h2 { font-size: 1rem !important; margin: 1.1rem 0 0.4rem !important; }
+  .nl-dateline { font-size: 0.6rem; }
+
+  /* alert box */
+  .nl-alert { padding: 0.65rem 0.75rem; }
+  .nl-alert-label { font-size: 0.52rem; }
+  .nl-alert p { font-size: 0.82rem; }
+
+  /* spots counter */
+  .nl-spots { font-size: 0.7rem; padding: 0.5rem 0.75rem; }
+
+  /* tier cards: stack vertically */
+  .nl-tier-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+  .nl-tier-card { padding: 1rem 0.85rem; }
+  .nl-tier-title { font-size: 1.2rem; }
+  .nl-tier-badge { font-size: 0.52rem; }
+  .nl-tier-list li { font-size: 0.82rem; padding: 0.35rem 0; }
+
+  /* inline CTA */
+  .nl-inline-cta { padding: 1rem 0.85rem; }
+  .nl-inline-cta h4 { font-size: 1rem !important; }
+  .nl-inline-cta .nl-cta-btn {
+    display: block; width: 100%; text-align: center;
+    padding: 0.7rem 1rem; box-sizing: border-box;
+  }
+
+  /* key points */
+  .nl-keypoints li { font-size: 0.84rem; padding: 0.5rem 0; gap: 0.45rem; }
+
+  /* pullquote */
+  .nl-pullquote { margin: 1.25rem 0; }
+  .nl-pullquote p { font-size: 0.92rem !important; }
+
+  /* mid-article CTA button */
+  .nl-article > a.nl-cta-btn {
+    display: block !important;
+    text-align: center;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  /* status row: 2 columns */
+  .nl-status-row { grid-template-columns: repeat(2, 1fr); }
+  .nl-stat:nth-child(2) { border-right: none; }
+  .nl-stat:nth-child(3) { border-top: 1px solid var(--nl-border); }
+  .nl-stat:nth-child(4) { border-top: 1px solid var(--nl-border); border-right: none; }
+  .nl-stat { padding: 0.55rem 0.4rem; }
+  .nl-stat-val { font-size: 0.95rem; }
+  .nl-stat-lbl { font-size: 0.48rem; }
+
+  /* compare table */
+  .nl-compare th,
+  .nl-compare td { padding: 0.4rem 0.5rem; font-size: 0.76rem; }
+  .nl-compare th { font-size: 0.5rem; }
+
+  /* final CTA block */
+  .nl-cta { padding: 1.1rem 0.85rem; }
+  .nl-cta h3 { font-size: 1.1rem !important; }
+  .nl-cta p { font-size: 0.8rem !important; }
+  .nl-cta-btn {
+    display: block;
+    text-align: center;
+    padding: 0.7rem 1rem;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 0.7rem;
+  }
+  .nl-cta-eyebrow { font-size: 0.52rem; }
+  .nl-cta-note { font-size: 0.5rem; }
+
+  /* footer */
+  .nl-footer {
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.55rem 0.85rem;
+  }
+  .nl-footer span { font-size: 0.52rem; }
+}
+
+/* ── very small screens ≤ 380px ── */
+@media (max-width: 380px) {
+  .nl-headline { font-size: 1.1rem !important; }
+  .nl-pub-name { font-size: 0.78rem; }
+  .nl-cd-num { font-size: 1.4rem; min-width: 34px; }
+  .nl-cd-sep { font-size: 1.2rem; }
+  .nl-surge-price { font-size: 1.25rem; }
+  .nl-tier-title { font-size: 1.05rem; }
+  .nl-tier-list li { font-size: 0.76rem; }
+  .nl-keypoints li { font-size: 0.78rem; }
+  .nl-compare th, .nl-compare td { font-size: 0.7rem; padding: 0.3rem 0.35rem; }
+  .nl-coin-img, .nl-coin-css { width: 100px; height: 100px; }
+}
 </style>
 
 <div class="nl-wrap">
@@ -1489,24 +1876,52 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
   <!-- Masthead -->
   <div class="nl-masthead">
     <div class="nl-pub-name">QFS Financial Brief</div>
-    <div class="nl-issue-meta">Special Report &nbsp;&#183;&nbsp; April 8, 2026<br>Distributed to verified network subscribers</div>
+    <div class="nl-issue-meta">EMERGENCY DISPATCH &nbsp;&#183;&nbsp; April 16, 2026<br>Verified network subscribers only</div>
   </div>
 
-  <!-- Section label -->
+  <!-- ═══ COUNTDOWN TIMER ═══ -->
+  <div class="nl-countdown-bar">
+    <div class="nl-countdown-label">&#9888; QFS LEDGER PURGE IN</div>
+    <div class="nl-countdown-digits" id="qfs-countdown">
+      <div class="nl-cd-unit">
+        <span class="nl-cd-num" id="cd-hours">--</span>
+        <span class="nl-cd-lbl">Hours</span>
+      </div>
+      <span class="nl-cd-sep">:</span>
+      <div class="nl-cd-unit">
+        <span class="nl-cd-num" id="cd-mins">--</span>
+        <span class="nl-cd-lbl">Minutes</span>
+      </div>
+      <span class="nl-cd-sep">:</span>
+      <div class="nl-cd-unit">
+        <span class="nl-cd-num" id="cd-secs">--</span>
+        <span class="nl-cd-lbl">Seconds</span>
+      </div>
+    </div>
+    <div class="nl-countdown-sub">Unverified accounts permanently deleted at midnight &#8212; no exceptions</div>
+  </div>
+
+  <!-- ═══ PRICE SURGE BANNER ═══ -->
+  <div class="nl-surge-banner">
+    <div class="nl-surge-label">CURRENT QFS TOKEN VALUATION</div>
+    <div class="nl-surge-price">$300,000 Per Token</div>
+    <div class="nl-surge-label" style="margin-top:0.35rem;">&#9650; SURGE CONFIRMED &#8212; PRE-RESET PRICING NOW ACTIVE</div>
+  </div>
+
+  <!-- Section bar -->
   <div class="nl-section-bar">
-    <span>Analyst Report</span>
-    <span class="nl-tag-gold">&#9733; Priority Dispatch</span>
+    <span>Emergency Directive</span>
+    <span style="color:#ef9a9a;">&#9888; FINAL NOTICE</span>
   </div>
 
-  <!-- ── PRICE SECTION (60%) ── -->
+  <!-- ═══ MAIN ARTICLE ═══ -->
   <div class="nl-article">
 
     <!-- Lead with coin -->
     <div class="nl-lead-layout">
       <div>
-        <p class="nl-dateline">Washington, D.C. &nbsp;&#183;&nbsp; QFS Network Briefing</p>
-        <h2 class="nl-headline">Each XRP Gold Token Held Tonight Is Projected to Reach <em>$1,000,000</em> After the Global Reset</h2>
-        <p class="nl-deck">QFS network modeling confirms what senior analysts have been circulating privately for months: the revaluation event has no second window, and verified holders will capture returns measured not in percentages &#8212; but in millions.</p>
+        <p class="nl-dateline">Washington, D.C. &nbsp;&#183;&nbsp; QFS Emergency Network Briefing</p>
+        <h2 class="nl-headline">Holders With 20+ Tokens Cash Out <em>September 1, 2026</em> &#8212; Everyone Else Waits Until 2027 or Loses Access Entirely</h2>
       </div>
       <div class="nl-coin-float">
         <img src="wh-assets/images/xrp-coin.png" alt="XRP Gold Token" class="nl-coin-img"
@@ -1519,73 +1934,88 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
       </div>
     </div>
 
-    <hr class="nl-hr">
-
-    <p class="nl-p">WASHINGTON, D.C. &#8212; Senior analysts within the Quantum Financial System network have released updated projections confirming a multi-phase price trajectory for XRP Gold Tokens that, under full QFS activation, places post-revaluation value well into seven figures per coin. The data, drawn from QFS ledger modeling and sovereign reserve demand forecasts, outlines three distinct milestones tied to the network&#8217;s activation schedule.</p>
-
-    <h2 class="nl-h2">Projected Value Trajectory</h2>
-
-    <p class="nl-p">The following projections are drawn from the April 2026 QFS Analyst Consensus Model. Each figure represents projected per-token value under the corresponding activation phase.</p>
-
-    <table class="nl-price-table">
-      <thead>
-        <tr>
-          <th>Timeline</th>
-          <th>Trigger Event</th>
-          <th class="nl-pt-note" style="text-align:center;">Gain</th>
-          <th>Proj. Value / Token</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="nl-pt-period">60 Days &mdash; Q2 2026</td>
-          <td>QFS Phase 1 activation &amp; institutional wave</td>
-          <td class="nl-pt-gain">&#9650; +4,924%</td>
-          <td class="nl-pt-price">$10,000+</td>
-        </tr>
-        <tr>
-          <td class="nl-pt-period">180 Days &mdash; Q4 2026</td>
-          <td>SWIFT replacement active across 47 nations</td>
-          <td class="nl-pt-gain">&#9650; +125,528%</td>
-          <td class="nl-pt-price">$250,000+</td>
-        </tr>
-        <tr class="nl-pt-highlight">
-          <td class="nl-pt-period">Post-RV &mdash; Full Reset</td>
-          <td>Sovereign reserve status &amp; price discovery</td>
-          <td class="nl-pt-gain">&#9650; Unlimited</td>
-          <td class="nl-pt-price">$1,000,000+</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="nl-pullquote">
-      <p>&#8220;When the QFS goes fully live, each verified token will not be measured in thousands &#8212; it will be measured in millions. Supply is fixed. Demand is effectively infinite. Those who did not hold enough, or who waited too long, will not have a second chance.&#8221;</p>
-      <cite>&#8212; QFS Network Senior Analyst, April 2026 Closed Briefing</cite>
+    <!-- ALERT -->
+    <div class="nl-alert">
+      <div class="nl-alert-label">&#9888; YOUR ACCOUNT: UNVERIFIED</div>
+      <p>You currently hold <strong>0 tokens</strong>. Without <strong>20+ tokens</strong> verified before midnight tonight, you are <strong>permanently excluded</strong> from the September 2026 cashout and may lose your QFS account entirely.</p>
     </div>
 
-    <p class="nl-p">The projections are grounded in a simple supply-demand asymmetry: the number of physical XRP Gold Tokens issued is finite and fixed at the time of manufacture. Once the QFS revaluation event triggers, sovereign institutions and network participants will compete for a pool of tokens that cannot be expanded. Analysts describe this as a &#8220;hard ceiling on supply meeting unbounded sovereign demand&#8221; &#8212; conditions that historically produce discontinuous price moves rather than gradual appreciation.</p>
+    <!-- SPOTS REMAINING -->
+    <div class="nl-spots" id="spots-counter">&#128308; Only <strong id="spots-num">23</strong> Priority Allocations Remaining &#8212; Disappearing in Real Time</div>
 
-    <p class="nl-p">Crucially, only verified account holders &#8212; those holding physical XRP Gold Tokens registered on the QFS ledger &#8212; are eligible to participate in the revaluation event. Unverified accounts are excluded from all post-RV distributions and transfers by design. The window to verify closes tonight.</p>
+    <hr class="nl-hr">
 
-    <a href="https://qfsmagastore.com/pages/xrp-gold-coins" target="_blank" rel="noreferrer noopener" class="nl-cta-btn aff-link" style="display:inline-block;margin:0.25rem 0 1.5rem;font-family:'DM Sans',sans-serif;background:var(--nl-gold2);color:var(--nl-ink) !important;padding:0.65rem 1.75rem;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none !important;">Secure Your Allocation &rarr;</a>
+    <!-- ═══ TIER COMPARISON ═══ -->
+    <h2 class="nl-h2">Your Outcome Depends on How Many Tokens You Hold Tonight</h2>
 
-  </div>
+    <div class="nl-tier-grid">
+      <div class="nl-tier-card tier-good">
+        <span class="nl-tier-badge">&#10004; RECOMMENDED</span>
+        <div class="nl-tier-title">20+ Tokens</div>
+        <ul class="nl-tier-list">
+          <li>&#10003; <strong>Full QFS activation</strong></li>
+          <li>&#128197; Cashout: <strong>September 1, 2026</strong></li>
+          <li>&#128293; Priority access to all RV events</li>
+          <li>&#10003; Sovereign financial protection</li>
+          <li>&#10003; Unrestricted transfers enabled</li>
+          <li>&#128176; Projected: <strong>$1,000,000+ per token</strong></li>
+        </ul>
+      </div>
+      <div class="nl-tier-card tier-bad">
+        <span class="nl-tier-badge">&#9940; INSUFFICIENT</span>
+        <div class="nl-tier-title">Under 10 Tokens</div>
+        <ul class="nl-tier-list">
+          <li>&#10007; <strong>No full verification</strong></li>
+          <li>&#128197; Delayed until <strong>2027 at earliest</strong></li>
+          <li>&#10007; No priority RV access</li>
+          <li>&#10007; Limited financial protections</li>
+          <li>&#10007; Transfers restricted</li>
+          <li>&#9888; May lose partial allocation entirely</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- INLINE CTA #1 -->
+    <div class="nl-inline-cta">
+      <h4>Secure 20+ Tokens Now &#8212; Lock In September 2026 Cashout</h4>
+      <p>Currently $300,000 per token &#8212; projected $1,000,000+ post-reset</p>
+      <a href="https://qfsmagastore.com/pages/xrp-gold-coins" target="_blank" rel="noreferrer noopener" class="nl-cta-btn aff-link">Secure Your Full Allocation &#8594;</a>
+    </div>
+
+    <hr class="nl-hr">
+
+    <!-- ═══ KEY FACTS ═══ -->
+    <h2 class="nl-h2">What You Need to Know Right Now</h2>
+
+    <ul class="nl-keypoints">
+      <li>&#128176; Each XRP Gold Token is now valued at <strong>$300,000</strong> and climbing</li>
+      <li>&#128200; Post-reset projection: <strong>$1,000,000+ per token</strong> under full QFS activation</li>
+      <li>&#10003; <strong>20+ tokens</strong> = full activation + September 2026 cashout</li>
+      <li>&#10007; <strong>Under 10 tokens</strong> = no full verification, delayed to 2027, possible exclusion</li>
+      <li>&#9200; <strong>Midnight tonight</strong> is the final verification deadline &#8212; no extensions</li>
+      <li>&#128274; The QFS ledger is immutable &#8212; once purged, there is <strong>no reinstatement</strong></li>
+    </ul>
+
+    <div class="nl-pullquote">
+      <p>&#8220;Holders with 20+ tokens are positioned for full activation and immediate cashout in September. Those under 10 face delays measured in years &#8212; if their accounts survive the purge at all.&#8221;</p>
+      <cite>&#8212; QFS Network Senior Analyst, April 2026 Emergency Briefing</cite>
+    </div>
+
+    <!-- MID-ARTICLE CTA -->
+    <a href="https://qfsmagastore.com/pages/xrp-gold-coins" target="_blank" rel="noreferrer noopener" class="nl-cta-btn aff-link" style="display:inline-block;margin:0.25rem 0 1.5rem;font-family:'DM Sans',sans-serif;background:var(--nl-gold2);color:var(--nl-ink) !important;padding:0.65rem 1.75rem;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none !important;">Don&#8217;t Wait &#8212; Secure 20+ Tokens Now &#8594;</a>
+
+  </div><!-- close first .nl-article -->
 
   <hr style="border:none;border-top:3px double var(--nl-rule);margin:0;">
 
-  <!-- Section label -->
+  <!-- ═══ BLACKLIST SECTION BAR ═══ -->
   <div class="nl-section-bar">
     <span>Account Alert</span>
-    <span style="color:#ef9a9a;">&#9888; Time-Sensitive</span>
+    <span style="color:#ef9a9a;">&#9888; BLACKLIST WARNING</span>
   </div>
 
-  <!-- ── BLACKLIST SECTION (40%) ── -->
+  <!-- ═══ BLACKLIST ARTICLE ═══ -->
   <div class="nl-article">
-
-    <div class="nl-alert">
-      <div class="nl-alert-label">&#9888; Account Status Warning</div>
-      <p>Your account is currently showing <strong>PENDING</strong> blacklist status. Without XRP Gold Token verification completed before midnight tonight, your record is permanently removed from the QFS ledger. No appeals. No reinstatement.</p>
-    </div>
 
     <div class="nl-status-row">
       <div class="nl-stat danger">
@@ -1593,105 +2023,110 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
         <span class="nl-stat-lbl">Blacklist Status</span>
       </div>
       <div class="nl-stat danger">
-        <span class="nl-stat-val">0.000</span>
-        <span class="nl-stat-lbl">XRP Balance</span>
+        <span class="nl-stat-val">0</span>
+        <span class="nl-stat-lbl">Tokens Held</span>
       </div>
       <div class="nl-stat">
-        <span class="nl-stat-val">47</span>
+        <span class="nl-stat-val" id="alloc-count">23</span>
         <span class="nl-stat-lbl">Allocations Left</span>
       </div>
       <div class="nl-stat danger">
         <span class="nl-stat-val">Midnight</span>
-        <span class="nl-stat-lbl">Deletion Deadline</span>
+        <span class="nl-stat-lbl">Final Deadline</span>
       </div>
     </div>
 
-    <h2 class="nl-h2">What the QFS Blacklist Means</h2>
-
-    <p class="nl-p">The Quantum Financial System does not operate like traditional banking. There is no customer service line when an account is flagged, no grace period after the nightly cycle runs, and no administrative path to reinstatement. The QFS operates on immutable ledger logic: <strong>accounts either meet the minimum verification threshold or they are removed.</strong></p>
-
-    <p class="nl-p">Verification requires physical XRP Gold Tokens &#8212; the only instrument the QFS ledger recognizes as proof of sovereign financial standing. Without this, an account remains in a grey zone the system treats as inactive and unverified, making it a candidate for the next purge cycle.</p>
-
-    <div class="nl-blockquote">&#8220;The nightly purge cycle has no exceptions. An unverified account at midnight is an account that no longer exists by morning.&#8221;</div>
-
-    <h2 class="nl-h2">Why XRP Gold Tokens Are the Required Instrument</h2>
-
-    <ul class="nl-reasons">
-      <li>
-        <span class="nl-rn">01</span>
-        <div><strong>Network Standing</strong><span>Accounts without token balance are flagged automatically each cycle and placed in the deletion queue</span></div>
-      </li>
-      <li>
-        <span class="nl-rn">02</span>
-        <div><strong>RV Event Access</strong><span>Priority access to revaluation events is permanently revoked for unverified accounts, with no path to restoration</span></div>
-      </li>
-      <li>
-        <span class="nl-rn">03</span>
-        <div><strong>Purge Protection</strong><span>Only verified token holders are excluded from nightly deletion cycles by the QFS protocol</span></div>
-      </li>
-      <li>
-        <span class="nl-rn">04</span>
-        <div><strong>Immutable Ledger Record</strong><span>QFS registration cannot be bypassed, faked, or retroactively applied after a purge cycle completes</span></div>
-      </li>
-    </ul>
-
-    <h2 class="nl-h2">Verified vs. Unverified: The Outcome Comparison</h2>
+    <h2 class="nl-h2">Verified vs. Unverified &#8212; There Is No Middle Ground</h2>
 
     <table class="nl-compare">
       <thead>
         <tr>
-          <th class="bad">Without XRP Gold Tokens</th>
-          <th class="good">With XRP Gold Tokens</th>
+          <th class="bad">Without 20+ Tokens</th>
+          <th class="good">With 20+ Tokens</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td class="bad">Flagged &amp; blacklisted at midnight</td>
-          <td class="good">Instantly verified on the QFS ledger</td>
+          <td class="bad">Blacklisted at midnight</td>
+          <td class="good">Fully verified on QFS ledger</td>
         </tr>
         <tr>
-          <td class="bad">XRP balance locked at zero forever</td>
-          <td class="good">Balance fully protected &amp; active</td>
+          <td class="bad">Cashout delayed to 2027+</td>
+          <td class="good">Cashout September 1, 2026</td>
         </tr>
         <tr>
           <td class="bad">Excluded from all RV events</td>
           <td class="good">Priority access to all RV events</td>
         </tr>
         <tr>
-          <td class="bad">Transfers permanently blocked</td>
-          <td class="good">Unrestricted transfers enabled</td>
-        </tr>
-        <tr>
-          <td class="bad">Account history erased</td>
-          <td class="good">Account ID secured on blockchain</td>
-        </tr>
-        <tr>
-          <td class="bad">No reinstatement possible</td>
-          <td class="good">Full sovereign financial protection</td>
+          <td class="bad">Account may be permanently erased</td>
+          <td class="good">Sovereign financial protection</td>
         </tr>
       </tbody>
     </table>
 
-    <p class="nl-p">The deadline is not a rolling window. The QFS nightly purge cycle runs at exactly midnight, without exception. Once the cycle completes, the accounts flagged in that run are removed permanently &#8212; no partial credit, no grace period, no second window. <strong>After tonight&#8217;s cycle runs, the options available today will no longer exist.</strong></p>
-
-    <!-- CTA -->
+    <!-- FINAL CTA -->
     <div class="nl-cta">
-      <span class="nl-cta-eyebrow">&#9200; Midnight Deadline &nbsp;&#183;&nbsp; 47 Allocations Remaining</span>
-      <h3>Your Account Is Still on the Blacklist</h3>
-      <p>XRP Gold Tokens clear the blacklist flag immediately on confirmation. Each token is projected to reach $1,000,000+ under full QFS activation.</p>
-      <a href="https://qfsmagastore.com/pages/xrp-gold-coins" target="_blank" rel="noreferrer noopener" class="nl-cta-btn aff-link">Secure Your QFS Allocation &rarr;</a>
-      <span class="nl-cta-note">Projected values based on QFS analyst consensus model. Past performance does not guarantee future results.</span>
+      <span class="nl-cta-eyebrow">&#9200; Midnight Deadline &#183; <span id="cta-alloc">23</span> Allocations Remaining</span>
+      <h3>This Is Your Final Chance to Secure Full Activation</h3>
+      <p>20+ tokens = September 2026 cashout at $300,000+ per token. Under 10 = delayed, restricted, or permanently erased.</p>
+      <a href="https://qfsmagastore.com/pages/xrp-gold-coins" target="_blank" rel="noreferrer noopener" class="nl-cta-btn aff-link">Secure Your Full Allocation Now &#8594;</a>
+      <span class="nl-cta-note">QFS analyst consensus model &#8212; April 2026 emergency dispatch</span>
     </div>
 
   </div>
 
   <!-- Newsletter footer -->
   <div class="nl-footer">
-    <span>QFS Financial Brief &nbsp;&#183;&nbsp; Special Report &nbsp;&#183;&nbsp; April 8, 2026</span>
+    <span>QFS Financial Brief &nbsp;&#183;&nbsp; Emergency Dispatch &nbsp;&#183;&nbsp; April 16, 2026</span>
     <span>Distributed to verified QFS network subscribers only</span>
   </div>
 
 </div><!-- end newsletter -->
+
+<!-- Sticky mobile CTA -->
+<div class="nl-sticky-cta">
+  <a href="https://qfsmagastore.com/pages/xrp-gold-coins" target="_blank" rel="noreferrer noopener" class="nl-cta-btn aff-link">Secure 20+ Tokens Now &#8594;</a>
+  <span class="nl-sticky-sub">&#9200; Midnight deadline &#8212; allocations running out</span>
+</div>
+
+<!-- Countdown + FOMO Scripts -->
+<script>
+(function() {
+  // Countdown to midnight
+  function updateCountdown() {
+    var now = new Date();
+    var midnight = new Date();
+    midnight.setHours(24,0,0,0);
+    var diff = midnight - now;
+    if (diff <= 0) diff = 0;
+    var h = Math.floor(diff / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-hours').textContent = h < 10 ? '0' + h : h;
+    document.getElementById('cd-mins').textContent = m < 10 ? '0' + m : m;
+    document.getElementById('cd-secs').textContent = s < 10 ? '0' + s : s;
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // Allocation counter decreases over time
+  var spots = 23;
+  function decreaseSpots() {
+    if (spots > 3) {
+      spots--;
+      var el1 = document.getElementById('spots-num');
+      var el2 = document.getElementById('alloc-count');
+      var el3 = document.getElementById('cta-alloc');
+      if (el1) el1.textContent = spots;
+      if (el2) el2.textContent = spots;
+      if (el3) el3.textContent = spots;
+    }
+    setTimeout(decreaseSpots, Math.floor(Math.random() * 50000) + 18000);
+  }
+  setTimeout(decreaseSpots, Math.floor(Math.random() * 25000) + 8000);
+})();
+</script>
 </div></main>
 
 <div style="height:100px" aria-hidden="true" class="wp-block-spacer"></div>
