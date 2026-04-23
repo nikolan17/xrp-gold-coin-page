@@ -1592,7 +1592,7 @@ option { background: var(--s4); }
       <div class="section-header">
         <div>
           <div class="section-title">Event Log</div>
-          <div class="section-sub">// Raw telemetry from affiliate-tracker.js · localStorage</div>
+          <div class="section-sub">// Raw telemetry from affiliate-tracker.js · Supabase</div>
         </div>
         <button class="btn btn-ghost btn-sm" onclick="loadEvents()">↻ Sync</button>
       </div>
@@ -1623,6 +1623,10 @@ option { background: var(--s4); }
           <div class="form-row" style="margin:0">
             <label class="form-label">Filename</label>
             <input class="form-input" id="new-page-filename" placeholder="e.g. whitehouse.html" />
+          </div>
+          <div class="form-row" style="margin:0;grid-column:1 / -1">
+            <label class="form-label">URL <span style="color:var(--tx-dim);text-transform:none;letter-spacing:0">(optional — leave blank for same-origin)</span></label>
+            <input class="form-input" id="new-page-url" placeholder="e.g. https://cnn-miracle.vercel.app/" />
           </div>
         </div>
         <button class="btn btn-primary" style="margin-top:18px" onclick="addPage()">+ Add Page</button>
@@ -1711,7 +1715,7 @@ option { background: var(--s4); }
         <div class="setting-row">
           <div class="setting-info">
             <label>Track page views</label>
-            <p>Log every page load as pageview event to localStorage</p>
+            <p>Log every page load as pageview event to Supabase</p>
           </div>
           <label class="toggle"><input type="checkbox" checked /><span class="toggle-slider"></span></label>
         </div>
@@ -1722,7 +1726,7 @@ option { background: var(--s4); }
         <div class="setting-row">
           <div class="setting-info">
             <label>Purge All Event Data</label>
-            <p>Wipes all tracked events from localStorage — irreversible</p>
+            <p>Wipes all tracked events from Supabase — irreversible</p>
           </div>
           <button class="btn btn-danger btn-sm" onclick="clearAllData()">Purge</button>
         </div>
@@ -1871,11 +1875,8 @@ if (isAuthenticated()) {
 }
 
 /* ════════════════════════════════════════════════════════════════
-   STATE & STORAGE
+   STATE & STORAGE  (all shared state lives in Supabase)
 ════════════════════════════════════════════════════════════════ */
-const AFF_KEY    = 'xrp_affiliates';
-const EVENTS_KEY = 'xrp_aff_events';
-const STATS_KEY  = 'xrp_aff_stats';
 
 /* ── Supabase ── */
 const SB_URL = 'https://wyxlodcpzbzgcwolfzbu.supabase.co';
@@ -1884,6 +1885,7 @@ const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 let _sbEvents     = [];
 let _sbLeads      = [];
 let _sbAffiliates = [];
+let _sbPages      = [];
 
 function sbHeaders() {
   return { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY };
@@ -1891,10 +1893,11 @@ function sbHeaders() {
 
 async function sbFetchAll() {
   try {
-    const [evRes, ldRes, affRes] = await Promise.all([
-      fetch(SB_URL + '/rest/v1/events?order=ts.desc&limit=2000', { headers: sbHeaders() }),
-      fetch(SB_URL + '/rest/v1/leads?order=ts.desc&limit=2000',  { headers: sbHeaders() }),
-      fetch(SB_URL + '/rest/v1/affiliates?order=created_at.asc', { headers: sbHeaders() })
+    const [evRes, ldRes, affRes, pgRes] = await Promise.all([
+      fetch(SB_URL + '/rest/v1/events?order=ts.desc&limit=2000',  { headers: sbHeaders() }),
+      fetch(SB_URL + '/rest/v1/leads?order=ts.desc&limit=2000',   { headers: sbHeaders() }),
+      fetch(SB_URL + '/rest/v1/affiliates?order=created_at.asc',  { headers: sbHeaders() }),
+      fetch(SB_URL + '/rest/v1/pages?order=created_at.asc',       { headers: sbHeaders() })
     ]);
     if (evRes.ok) {
       const raw = await evRes.json();
@@ -1905,6 +1908,7 @@ async function sbFetchAll() {
       const raw = await affRes.json();
       _sbAffiliates = raw.map(a => Object.assign({}, a, { storeLink: a.store_link }));
     }
+    if (pgRes.ok) _sbPages = await pgRes.json();
   } catch(e) {}
 }
 
@@ -1916,8 +1920,17 @@ async function loadEvents() {
   renderEvents(_sbEvents);
   updateSidebarCount(_sbEvents.length);
 }
+// Derived from shared events → identical across devices
 function loadStats() {
-  try { return JSON.parse(localStorage.getItem(STATS_KEY) || '{}'); } catch(e) { return {}; }
+  const stats = {};
+  (_sbEvents || []).forEach(function(e) {
+    if (e.type !== 'cta_click') return;
+    const k = e.affiliateCode || e.affiliate_code;
+    if (!k) return;
+    stats[k] = stats[k] || { clicks: 0 };
+    stats[k].clicks++;
+  });
+  return stats;
 }
 
 
@@ -2106,7 +2119,7 @@ async function renderAffiliates() {
       ? '<div class="td-pages-cell">' + pageIds.map(pid => {
           const pg = allPages.find(p => p.id === pid);
           if (!pg) return '';
-          return `<div class="page-link-row"><span class="page-link-title">${pg.title}</span><button class="copy-btn" style="font-size:8px;padding:2px 6px" onclick="copyRefUrl('${pg.filename}','${a.code}',this)">Copy</button></div>`;
+          return `<div class="page-link-row"><span class="page-link-title">${pg.title}</span><button class="copy-btn" style="font-size:8px;padding:2px 6px" onclick="copyRefUrl('${pg.filename}','${a.code}',this,'${pg.url||''}')">Copy</button></div>`;
         }).join('') + '</div>'
       : '<span style="color:var(--tx-dim);font-size:10px">—</span>';
 
@@ -2239,42 +2252,64 @@ function updateSidebarCount(n) {
 }
 
 /* ════════════════════════════════════════════════════════════════
-   PAGES MANAGER
+   PAGES MANAGER  (shared via Supabase)
 ════════════════════════════════════════════════════════════════ */
-const PAGES_KEY = 'xrp_pages';
 
 function loadPages() {
-  try { return JSON.parse(localStorage.getItem(PAGES_KEY) || '[]'); } catch(e) { return []; }
+  return _sbPages;
 }
-function savePages(list) { localStorage.setItem(PAGES_KEY, JSON.stringify(list)); }
 
-function addPage() {
+async function addPage() {
   const title    = document.getElementById('new-page-title').value.trim();
   const filename = document.getElementById('new-page-filename').value.trim();
+  const url      = document.getElementById('new-page-url').value.trim();
   if (!title || !filename) { toast('Both title and filename are required', 'error'); return; }
-  const pages = loadPages();
   const id = 'PG' + Date.now();
-  pages.push({ id, title, filename });
-  savePages(pages);
+  try {
+    const res = await fetch(SB_URL + '/rest/v1/pages', {
+      method:  'POST',
+      headers: { ...sbHeaders(), 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body:    JSON.stringify({ id, title, filename, url: url || null })
+    });
+    if (!res.ok) throw new Error('insert failed');
+  } catch(e) { toast('Save failed — is the pages table created in Supabase?', 'error'); return; }
+
   document.getElementById('new-page-title').value    = '';
   document.getElementById('new-page-filename').value = '';
+  document.getElementById('new-page-url').value      = '';
+  await sbFetchAll();
   renderPages();
   toast('Page added', 'success');
 }
 
-function deletePage(id) {
+async function deletePage(id) {
   if (!confirm('Remove this page? Affiliates assigned to it will lose this assignment.')) return;
-  const pages = loadPages().filter(p => p.id !== id);
-  savePages(pages);
-  // Remove from all affiliates too
-  const affs = loadAffiliates().map(a => ({ ...a, pages: (a.pages||[]).filter(pid => pid !== id) }));
-  saveAffiliates(affs);
+  try {
+    await fetch(SB_URL + '/rest/v1/pages?id=eq.' + encodeURIComponent(id), {
+      method:  'DELETE',
+      headers: sbHeaders()
+    });
+  } catch(e) { toast('Delete failed', 'error'); return; }
+
+  // Strip this page id from every affiliate that had it assigned
+  const affected = loadAffiliates().filter(a => (a.pages||[]).includes(id));
+  await Promise.all(affected.map(a => {
+    const newPages = (a.pages || []).filter(pid => pid !== id);
+    return fetch(SB_URL + '/rest/v1/affiliates?id=eq.' + encodeURIComponent(a.id), {
+      method:  'PATCH',
+      headers: { ...sbHeaders(), 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body:    JSON.stringify({ pages: newPages })
+    });
+  }));
+
+  await sbFetchAll();
   renderPages();
   renderAffiliates();
   toast('Page removed', 'info');
 }
 
-function renderPages() {
+async function renderPages() {
+  await sbFetchAll();
   const pages = loadPages();
   const affs  = loadAffiliates();
   const tbody = document.getElementById('pages-table');
@@ -2287,7 +2322,7 @@ function renderPages() {
     const assignedCount = affs.filter(a => (a.pages||[]).includes(p.id)).length;
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td class="td-name">${p.title}</td>
+      <td class="td-name">${p.title}${p.url ? `<div style="font-family:var(--mono);font-size:9px;color:var(--tx-dim);margin-top:4px;font-weight:normal">${p.url}</div>` : ''}</td>
       <td style="font-family:var(--mono);font-size:10px;color:var(--primary)">${p.filename}</td>
       <td class="td-num">${assignedCount}</td>
       <td><button class="btn btn-danger btn-sm" onclick="deletePage('${p.id}')">Remove</button></td>`;
@@ -2295,14 +2330,18 @@ function renderPages() {
   });
 }
 
-function buildRefUrl(filename, code) {
+function buildRefUrl(filename, code, pageUrl) {
+  if (pageUrl) {
+    const sep = pageUrl.includes('?') ? '&' : '?';
+    return pageUrl + sep + 'ref=' + code;
+  }
   const base = window.location.origin + '/';
   const clean = filename.replace(/\.html$/i, '');
   return base + clean + '?ref=' + code;
 }
 
-function copyRefUrl(filename, code, btn) {
-  const url = buildRefUrl(filename, code);
+function copyRefUrl(filename, code, btn, pageUrl) {
+  const url = buildRefUrl(filename, code, pageUrl);
   navigator.clipboard.writeText(url).then(() => {
     btn.textContent = 'Copied!';
     btn.classList.add('copied');
@@ -2340,12 +2379,17 @@ function exportCSV() {
 /* ════════════════════════════════════════════════════════════════
    SETTINGS ACTIONS
 ════════════════════════════════════════════════════════════════ */
-function clearAllData() {
-  if (!confirm('This will permanently delete ALL tracked events. Are you sure?')) return;
-  localStorage.removeItem('xrp_aff_events');
-  localStorage.removeItem('xrp_aff_stats');
+async function clearAllData() {
+  if (!confirm('This will permanently delete ALL tracked events from Supabase. Are you sure?')) return;
+  try {
+    await fetch(SB_URL + '/rest/v1/events?ts=not.is.null', {
+      method:  'DELETE',
+      headers: sbHeaders()
+    });
+  } catch(e) { toast('Clear failed', 'error'); return; }
+  _sbEvents = [];
   toast('All event data cleared', 'info');
-  loadEvents();
+  await loadEvents();
   updateSidebarCount(0);
 }
 
@@ -2381,8 +2425,6 @@ function fmtTime(iso) {
 /* ════════════════════════════════════════════════════════════════
    LEADS
 ════════════════════════════════════════════════════════════════ */
-const LEADS_KEY = 'xrp_leads';
-
 function loadLeads() {
   return _sbLeads;
 }
