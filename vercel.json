@@ -1,4 +1,11 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "^cnn-miracle(-.*)?\\.vercel\\.app$" }],
+      "destination": "/cnn.html"
+    }
+  ]
 }
