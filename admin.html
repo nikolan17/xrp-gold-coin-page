@@ -2190,17 +2190,44 @@ async function saveAffiliate() {
 
   if (!fname || !code || !storeLink) { toast('Name, Ref Code and Store Link are required', 'error'); return; }
 
+  // Refresh from Supabase before validating — avoids stale `_sbAffiliates`
+  // causing id collisions or missed code-uniqueness checks
+  await sbFetchAll();
   const existing = loadAffiliates();
-  const id = editId || 'AFF' + String(existing.length + 1).padStart(3,'0');
-  const row = { id, fname, lname, code, store_link: storeLink, pages, clicks: editId ? (existing.find(a=>a.id===editId)?.clicks||0) : 0, status: 'active' };
+
+  // Ref code must be unique across affiliates (excluding the one being edited)
+  if (existing.some(a => a.code === code && a.id !== editId)) {
+    toast('Ref code "' + code + '" is already used by another affiliate', 'error');
+    return;
+  }
 
   try {
-    await fetch(SB_URL + '/rest/v1/affiliates', {
-      method: 'POST',
-      headers: { ...sbHeaders(), 'Content-Type': 'application/json', 'Prefer': 'resolution=merge-duplicates,return=minimal' },
-      body: JSON.stringify(row)
-    });
-  } catch(e) { toast('Save failed', 'error'); return; }
+    if (editId) {
+      // UPDATE existing row by id — PATCH only specified fields
+      const patch = { fname, lname, code, store_link: storeLink, pages };
+      const res = await fetch(SB_URL + '/rest/v1/affiliates?id=eq.' + encodeURIComponent(editId), {
+        method:  'PATCH',
+        headers: { ...sbHeaders(), 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+        body:    JSON.stringify(patch)
+      });
+      if (!res.ok) throw new Error('patch failed ' + res.status);
+    } else {
+      // CREATE new row — derive id from MAX(existing ids) so deletes never
+      // cause collisions, and refuse on conflict instead of overwriting
+      const maxNum = existing.reduce(function(max, a) {
+        const m = /^AFF(\d+)$/.exec(a.id || '');
+        return m ? Math.max(max, parseInt(m[1], 10)) : max;
+      }, 0);
+      const id = 'AFF' + String(maxNum + 1).padStart(3, '0');
+      const row = { id, fname, lname, code, store_link: storeLink, pages, clicks: 0, status: 'active' };
+      const res = await fetch(SB_URL + '/rest/v1/affiliates', {
+        method:  'POST',
+        headers: { ...sbHeaders(), 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+        body:    JSON.stringify(row)
+      });
+      if (!res.ok) throw new Error('insert failed ' + res.status);
+    }
+  } catch(e) { toast('Save failed — ' + (e.message || 'try again'), 'error'); return; }
 
   closeModal();
   await renderAffiliates();
