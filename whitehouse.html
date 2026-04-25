@@ -1514,6 +1514,42 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 }
 .nl-cta-red .nl-cta-btn:hover { background: #ffc73a; }
 
+/* ── earnings tier list (used inside both CTAs) ── */
+.nl-cta-tiers {
+  list-style: none;
+  margin: 0 0 1.1rem;
+  padding: 0.85rem 1rem;
+  background: rgba(0,0,0,0.28);
+  border-left: 3px solid var(--nl-gold);
+  text-align: left;
+}
+.nl-cta-tiers li {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.02rem;
+  line-height: 1.55;
+  color: #fff;
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  padding: 0.18rem 0;
+}
+.nl-cta-tiers li + li { border-top: 1px dashed rgba(255,255,255,0.12); margin-top: 0.18rem; padding-top: 0.36rem; }
+.nl-cta-tiers .nl-cta-tier-amt {
+  min-width: 5.5rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+}
+.nl-cta-tiers .nl-cta-tier-arrow { color: var(--nl-gold2); font-weight: 700; }
+.nl-cta-tiers strong {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.12rem;
+  color: #ffd96a;
+  margin-left: auto;
+}
+.nl-cta-red .nl-cta-tiers { background: rgba(0,0,0,0.22); border-left-color: #ffd96a; }
+.nl-cta-red .nl-cta-tiers strong { color: #fff5b8; }
+
 /* ── footer rule ── */
 .nl-footer {
   border-top: 1px solid var(--nl-border);
@@ -1640,6 +1676,12 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
     line-height: 1.5;
     color: rgba(255,255,255,0.55);
   }
+
+  /* earnings tier list — keep tier label + amount on one line, no wrap */
+  .nl-cta-tiers { padding: 0.75rem 0.85rem; }
+  .nl-cta-tiers li { font-size: 0.95rem; gap: 0.4rem; }
+  .nl-cta-tiers .nl-cta-tier-amt { min-width: 4.8rem; }
+  .nl-cta-tiers strong { font-size: 1.05rem; }
 
   /* mid-article red CTA — same readability fixes */
   .nl-cta-red { padding: 1.5rem 1.15rem !important; }
@@ -1791,7 +1833,14 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
     <div class="nl-cta-red">
       <span class="nl-cta-eyebrow">&#9200; Locks Tonight at Midnight</span>
       <h3>Claim 20+ Tokens Before the Ledger Closes</h3>
-      <p>20 tokens projects to a <strong>$20,000,000+ portfolio</strong> after the reset. 30 tokens &#8594; <strong>$30,000,000+</strong>. 50 tokens &#8594; <strong>$50,000,000+</strong>. 100 tokens &#8594; <strong>$100,000,000+</strong>. 20 is the recommended starting baseline &#8212; every additional token scales your projected position at $1,000,000+ per coin. The more you secure tonight, the larger your post-RV allocation.</p>
+      <p>Projected post-RV payout at <strong>$1,000,000+ per coin</strong>:</p>
+      <ul class="nl-cta-tiers">
+        <li><span class="nl-cta-tier-amt">20 tokens</span> <span class="nl-cta-tier-arrow">&#8594;</span> <strong>$20,000,000+</strong></li>
+        <li><span class="nl-cta-tier-amt">30 tokens</span> <span class="nl-cta-tier-arrow">&#8594;</span> <strong>$30,000,000+</strong></li>
+        <li><span class="nl-cta-tier-amt">50 tokens</span> <span class="nl-cta-tier-arrow">&#8594;</span> <strong>$50,000,000+</strong></li>
+        <li><span class="nl-cta-tier-amt">100 tokens</span> <span class="nl-cta-tier-arrow">&#8594;</span> <strong>$100,000,000+</strong></li>
+      </ul>
+      <p>20 is the recommended starting baseline. The more you secure tonight, the larger your post-RV allocation.</p>
       <a href="https://qfsmagastore.com/pages/xrp-gold-coins" target="_blank" rel="noreferrer noopener" class="nl-cta-btn aff-link">Claim My Allocation &#8212; 20+ Tokens &rarr;</a>
     </div>
 
@@ -1906,7 +1955,14 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
     <div class="nl-cta">
       <span class="nl-cta-eyebrow">&#9200; Tonight at Midnight &nbsp;&#183;&nbsp; <span id="nlAllocCta">47</span> Allocations Left</span>
       <h3>Lock In 20+ Tokens Tonight &#8212; The More You Hold, The Larger Your Position</h3>
-      <p>20 tokens is the recommended starting baseline &#8212; projected <strong>$20,000,000+ post-RV position</strong> at $1,000,000+ per coin. Every additional token scales your payout proportionally: 30 &#8594; $30M+, 50 &#8594; $50M+, 100 &#8594; $100M+. There is no stated ceiling on the allocation &#8212; the more you secure before midnight, the larger your projected portfolio after the reset.</p>
+      <p>Projected post-RV position at <strong>$1,000,000+ per coin</strong>:</p>
+      <ul class="nl-cta-tiers">
+        <li><span class="nl-cta-tier-amt">20 tokens</span> <span class="nl-cta-tier-arrow">&#8594;</span> <strong>$20,000,000+</strong></li>
+        <li><span class="nl-cta-tier-amt">30 tokens</span> <span class="nl-cta-tier-arrow">&#8594;</span> <strong>$30,000,000+</strong></li>
+        <li><span class="nl-cta-tier-amt">50 tokens</span> <span class="nl-cta-tier-arrow">&#8594;</span> <strong>$50,000,000+</strong></li>
+        <li><span class="nl-cta-tier-amt">100 tokens</span> <span class="nl-cta-tier-arrow">&#8594;</span> <strong>$100,000,000+</strong></li>
+      </ul>
+      <p>20 is the baseline. There is no stated ceiling &#8212; the more you secure before midnight, the larger your projected portfolio after the reset.</p>
       <a href="https://qfsmagastore.com/pages/xrp-gold-coins" target="_blank" rel="noreferrer noopener" class="nl-cta-btn aff-link">Secure My Allocation Before Midnight &rarr;</a>
       <span class="nl-cta-note">Projected values based on QFS analyst consensus model. Past performance does not guarantee future results.</span>
     </div>
